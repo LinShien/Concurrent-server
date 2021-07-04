@@ -58,9 +58,10 @@ int main(int args, char** argv) {
     std::thread client2(test_send_message, create_initialize_client_socket(8888));
     std::thread client3(test_send_message, create_initialize_client_socket(9999));
 
-    client1.join();
-    client2.join();
-    client3.join();
+    client1.detach();
+    client2.detach();
+    client3.detach();
     
+    sleep(20);
     return 0;
 }

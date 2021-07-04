@@ -1,9 +1,15 @@
 #include "utils/utils.h"
 #include "utils/server.h"
 #include <iostream>
-#include <netinet/in.h>
 #include <sys/socket.h>
+#include <thread>
 #include <unistd.h>
+
+void task(int sockfd) {
+    std::cout << "Thread " << std::this_thread::get_id() << " created to handle connection with socket " << sockfd << std::endl;
+    serve_connection(sockfd);
+    std::cout << "Thread " << std::this_thread::get_id() << " done. " << std::endl;
+}
 
 int main(int args, char** argv) {
     setvbuf(stdout, NULL, _IOFBF, 0);
@@ -19,7 +25,7 @@ int main(int args, char** argv) {
     std::cout << "Serving on port: " << portNum << std::endl;
     std::cout << "Starting to accept any connection...." << std::endl;
 
-    while (1) {
+    while (true) {
         sockaddr_in peer_addr;
         socklen_t peer_addr_len = sizeof(peer_addr);
 
@@ -30,12 +36,11 @@ int main(int args, char** argv) {
         }
 
         report_peer_connected(&peer_addr, peer_addr_len);
-        serve_connection(new_sockfd);
 
-        std::cout << "Peer done" << std::endl;
+        std::thread thread_handle_connection(task, new_sockfd);
+        thread_handle_connection.detach();
     }
-    
+
     close(server_sockfd);
     return 0;
 }
- 
