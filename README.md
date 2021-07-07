@@ -5,7 +5,7 @@ Practice network programming and typical server models. [Tutorial here](https://
 * [Multithreaded Server](#MultithreadedServer)
 * [Thread Pools based Concurrent Server](ThreadPoolServer)
 
-## <a name="SequentialServer"> Sequential Server
+## <a name="SequentialServer"> Sequential Server </a>
 
 *A very simple server that can only serve one client in order at a time.*
 
@@ -17,7 +17,7 @@ Practice network programming and typical server models. [Tutorial here](https://
 
 ---
 
-## <a name="MultithreadedServer"> Multithreaded Server
+## <a name="MultithreadedServer"> Multithreaded Server </a>
 
 *A server that use a new thread to handle every client socket connection*
 
@@ -27,7 +27,7 @@ Practice network programming and typical server models. [Tutorial here](https://
 > * Server side: using threads to handle client sockets connections concurrently
 <img src="https://github.com/LinShien/Concurrent-server/blob/main/demo/2021-07-05%2001-21-30%20%E7%9A%84%E8%9E%A2%E5%B9%95%E6%93%B7%E5%9C%96.png" width=700>
 
-## <a name="ThreadPoolServer"> Thread Pools based Concurrent Server
+## <a name="ThreadPoolServer"> Thread Pools based Concurrent Server </a>
 
 *A server that use a threadpool with limited number of threads to handle every client socket connection*
 
