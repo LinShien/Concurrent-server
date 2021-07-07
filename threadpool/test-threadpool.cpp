@@ -1,6 +1,7 @@
+#include "ThreadPool.h"
+
 #include <iostream> 
 #include <random> 
-#include "ThreadPool.h"
 
 
 std::random_device rd; //真实随机数产生器
@@ -49,6 +50,7 @@ void example() {
   // 初始化线程池
 
   pool.init();
+  pool.print_info();
 
   // 提交乘法操作，总共30个
 

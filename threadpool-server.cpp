@@ -1,15 +1,14 @@
+#include "threadpool/ThreadPool.h"
 #include "utils/utils.h"
 #include "utils/server.h"
 
 #include <iostream>
-#include <sys/socket.h>
-#include <thread>
 #include <unistd.h>
 
 void task(int sockfd) {
-    std::cout << "Thread " << std::this_thread::get_id() << " created to handle connection with socket " << sockfd << std::endl;
+    std::cout << "Thread " << std::this_thread::get_id() << " in ThreadPool now handle the connection with socket " << sockfd << std::endl;
     serve_connection(sockfd);
-    std::cout << "Thread " << std::this_thread::get_id() << " done. " << std::endl;
+    std::cout << "Thread " << std::this_thread::get_id() << " in ThreadPool completed its task. \n" << std::endl;
 }
 
 int main(int args, char** argv) {
@@ -26,6 +25,10 @@ int main(int args, char** argv) {
     std::cout << "Serving on port: " << portNum << std::endl;
     std::cout << "Starting to accept any connection...." << std::endl;
 
+    ThreadPool pool(2);
+    pool.init();
+    pool.print_info();
+
     while (true) {
         sockaddr_in peer_addr;
         socklen_t peer_addr_len = sizeof(peer_addr);
@@ -38,10 +41,11 @@ int main(int args, char** argv) {
 
         report_peer_connected(&peer_addr, peer_addr_len);
 
-        std::thread thread_handle_connection(task, new_sockfd);
-        thread_handle_connection.detach();
+        pool.submit(task, new_sockfd);
     }
 
+    pool.shutdown();
     close(server_sockfd);
+
     return 0;
 }

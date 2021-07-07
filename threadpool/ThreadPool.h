@@ -18,6 +18,7 @@ class ThreadPool {
 
         void init();
         void shutdown();
+        void print_info();
 
         template<typename F, typename...Args>
         decltype(auto) submit(F&& f, Args&&... args);
