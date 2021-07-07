@@ -1,7 +1,11 @@
 # Concurrent-server
 Practice network programming and typical server models. [Tutorial here](https://eli.thegreenplace.net/2017/concurrent-servers-part-1-introduction/)
 
-## Sequential Server
+* [Sequential Server](#SequentialServer)
+* [Multithreaded Server](#MultithreadedServer)
+* [Thread Pools based Concurrent Server](ThreadPoolServer)
+
+## <a name="SequentialServer"> Sequential Server
 
 *A very simple server that can only serve one client in order at a time.*
 
@@ -13,14 +17,25 @@ Practice network programming and typical server models. [Tutorial here](https://
 
 ---
 
-## Multithreaded Server
-*A server that use a new thread to handle every client socket connection
+## <a name="MultithreadedServer"> Multithreaded Server
+
+*A server that use a new thread to handle every client socket connection*
 
 > * Client side: using multithreading to connect to the sequential server at the same time
 <img src="https://github.com/LinShien/Concurrent-server/blob/main/demo/2021-07-05%2001-21-44%20%E7%9A%84%E8%9E%A2%E5%B9%95%E6%93%B7%E5%9C%96.png" width=700>
 
 > * Server side: using threads to handle client sockets connections concurrently
 <img src="https://github.com/LinShien/Concurrent-server/blob/main/demo/2021-07-05%2001-21-30%20%E7%9A%84%E8%9E%A2%E5%B9%95%E6%93%B7%E5%9C%96.png" width=700>
+
+## <a name="ThreadPoolServer"> Thread Pools based Concurrent Server
+
+*A server that use a threadpool with limited number of threads to handle every client socket connection*
+
+> * Client side: using multithreading to connect to the sequential server at the same time
+<img src="https://github.com/LinShien/Concurrent-server/blob/main/demo/2021-07-08%2002-45-47%20%E7%9A%84%E8%9E%A2%E5%B9%95%E6%93%B7%E5%9C%96.png" width=700>
+
+> * Server side: using threadpool to handle client sockets connections concurrently
+<img src="https://github.com/LinShien/Concurrent-server/blob/main/demo/2021-07-08%2002-46-12%20%E7%9A%84%E8%9E%A2%E5%B9%95%E6%93%B7%E5%9C%96.png" width=700>
 
 ## Useful references to network programming and multi-thread programming
 * [C/C++ socket lib guide and reference](https://beej-zhtw-gitbook.netdpi.net/)
