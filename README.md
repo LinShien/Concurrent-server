@@ -53,7 +53,7 @@ Practice network programming and typical server models. [Tutorial here](https://
 
 > * **Client side**: 
 > using multithreading to connect to the sequential server at the same time.
-> <img src="https://github.com/LinShien/Concurrent-server/blob/main/demo/select-client.png" height=500>
+<img src="https://github.com/LinShien/Concurrent-server/blob/main/demo/select-client.png" height=500>
 
 > * **Server side**: 
 > using a event for loop to keep polling and checking whether there are upcoming events to monitored file descriptors and use specific callbacks and states to handle the upcoming events.
