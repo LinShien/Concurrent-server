@@ -4,38 +4,60 @@ Practice network programming and typical server models. [Tutorial here](https://
 * [Sequential Server](#SequentialServer)
 * [Multithreaded Server](#MultithreadedServer)
 * [Thread Pools based Concurrent Server](#ThreadPoolServer)
+* [Event-Driven Concurrent Server](#SelectServer)
 
 ## <a name="SequentialServer"> Sequential Server </a>
 
 *A very simple server that can only serve one client in order at a time.*
 
-> * Client side: using multithreading to connect to the sequential server at the same time
-<img src="https://github.com/LinShien/Concurrent-server/blob/main/demo/2021-07-04%2018-03-51%20%E7%9A%84%E8%9E%A2%E5%B9%95%E6%93%B7%E5%9C%96.png" width=700>
+> * Client side: using multithreading to connect to the sequential server at the same time.
+<img src="https://github.com/LinShien/Concurrent-server/blob/main/demo/sequential-client.png" height=500>
 
-> * Server side: using a blocking function called serve_connection() to server a client socket at a time
-<img src="https://github.com/LinShien/Concurrent-server/blob/main/demo/2021-07-04%2018-04-35%20%E7%9A%84%E8%9E%A2%E5%B9%95%E6%93%B7%E5%9C%96.png" width=700>
+> * Server side: using a blocking function called serve_connection() to server a client socket at a time.
+<img src="https://github.com/LinShien/Concurrent-server/blob/main/demo/sequential-server.png" width=600 height=400>
 
 ---
 
 ## <a name="MultithreadedServer"> Multithreaded Server </a>
 
-*A server that use a new thread to handle every client socket connection*
+*A server that use a new thread to handle every client socket connection.*
 
-> * Client side: using multithreading to connect to the sequential server at the same time
-<img src="https://github.com/LinShien/Concurrent-server/blob/main/demo/2021-07-05%2001-21-44%20%E7%9A%84%E8%9E%A2%E5%B9%95%E6%93%B7%E5%9C%96.png" width=700>
+> * **Client side**: 
+> using multithreading to connect to the sequential server at the same time.
+<img src="https://github.com/LinShien/Concurrent-server/blob/main/demo/multithreaded-client.png" height=500>
 
-> * Server side: using threads to handle client sockets connections concurrently
-<img src="https://github.com/LinShien/Concurrent-server/blob/main/demo/2021-07-05%2001-21-30%20%E7%9A%84%E8%9E%A2%E5%B9%95%E6%93%B7%E5%9C%96.png" width=700>
+> * **Server side**: 
+> using threads to handle client sockets connections concurrently.
+<img src="https://github.com/LinShien/Concurrent-server/blob/main/demo/multithreaded-server.png" width=600 height=400>
+
+---
 
 ## <a name="ThreadPoolServer"> Thread Pools based Concurrent Server </a>
 
-*A server that use a threadpool with limited number of threads to handle every client socket connection*
+*A server that use a threadpool with limited number of threads to handle every client socket connection.*
 
-> * Client side: using multithreading to connect to the sequential server at the same time
-<img src="https://github.com/LinShien/Concurrent-server/blob/main/demo/2021-07-08%2002-45-47%20%E7%9A%84%E8%9E%A2%E5%B9%95%E6%93%B7%E5%9C%96.png" width=700>
+> * **Client side**: 
+> using multithreading to connect to the sequential server at the same time.
+<img src="https://github.com/LinShien/Concurrent-server/blob/main/demo/threadpool-client.png" height=500>
 
-> * Server side: using threadpool to handle client sockets connections concurrently
-<img src="https://github.com/LinShien/Concurrent-server/blob/main/demo/2021-07-08%2002-46-12%20%E7%9A%84%E8%9E%A2%E5%B9%95%E6%93%B7%E5%9C%96.png" width=700>
+> * **Server side**: 
+> using threadpool to handle client sockets connections concurrently.
+<img src="https://github.com/LinShien/Concurrent-server/blob/main/demo/threadpool-server.png" width=600 height=400>
+
+---
+
+## <a name="SelectServer"> Event-Driven Concurrent Server </a>
+*A server that use a just one thread and the feature of select() function to monitor the file descriptors and pending events to them, then handle every client socket connection with some callback functions. There is not multithreading involved*
+
+*This kind of concurrent servers also called event-driven, callback-based(like javascript), asynchronous concurrent server.*
+
+> * **Client side**: 
+> using multithreading to connect to the sequential server at the same time.
+> <img src="https://github.com/LinShien/Concurrent-server/blob/main/demo/select-client.png" height=500>
+
+> * **Server side**: 
+> using a event for loop to keep polling and checking whether there are upcoming events to monitored file descriptors and use specific callbacks and states to handle the upcoming events.
+<img src="https://github.com/LinShien/Concurrent-server/blob/main/demo/select-server.png" width=600 height=400>
 
 ## Useful references to network programming and multi-thread programming
 * [C/C++ socket lib guide and reference](https://beej-zhtw-gitbook.netdpi.net/)
