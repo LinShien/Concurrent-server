@@ -47,7 +47,7 @@ Practice network programming and typical server models. [Tutorial here](https://
 ---
 
 ## <a name="SelectServer"> Event-Driven Concurrent Server </a>
-*A server that use a just one thread and the feature of select() function to monitor the file descriptors and pending events to them, then handle every client socket connection with some callback functions. There is not multithreading involved*
+*A server that use a just one thread and the feature of select() function to monitor the file descriptors and pending events to them, then handle every client socket connection with some callback functions. There is not multithreading involved, just one thread and select() I/O multiplexing function.*
 
 *This kind of concurrent servers also called event-driven, callback-based(like javascript), asynchronous concurrent server.*
 
