@@ -8,7 +8,9 @@
 
 void task(int sockfd) {
     std::cout << "Thread " << std::this_thread::get_id() << " created to handle connection with socket " << sockfd << std::endl;
+
     serve_connection(sockfd);
+    
     std::cout << "Thread " << std::this_thread::get_id() << " done. " << std::endl;
 }
 

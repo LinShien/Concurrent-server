@@ -6,6 +6,9 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <string>
+#include <fcntl.h>
+
+const int N_BACKLOG = 64;
 
 void report_peer_connected(const sockaddr_in* sa, socklen_t salen) {
     char host_buf[NI_MAXHOST];
@@ -46,11 +49,11 @@ int create_intialize_server_socket(int portNum) {
         print_error_message_and_exit("Binding a socket failed...");
     }
     
-    if (listen(server_sockfd, 64) == -1) {
+    if (listen(server_sockfd, N_BACKLOG) == -1) {
         print_error_message_and_exit("Listening failed...");
     }
 
-    std::cout << "Sucessfully created a socket" << std::endl;
+    std::cout << "Sucessfully created a server socket" << std::endl;
     return server_sockfd;
 }
 
@@ -59,6 +62,13 @@ int create_initialize_client_socket(int portNum = -1) {
 
     if (cli_sockfd == -1) {
         print_error_message_and_exit("Creating a socket failed... :");
+    }
+
+    int opt = 1;
+
+    // 一個 port 釋放後會等待兩分鐘之後才能再被使用，SO_REUSEADDR 是讓 port 釋放後立即就可以被再次使用
+    if (setsockopt(cli_sockfd, SOL_SOCKET, SO_REUSEADDR, (char*) &opt, sizeof(opt)) == -1) {
+        print_error_message_and_exit("Setting options of a socket failed...");
     }
 
     if (portNum != -1) {
@@ -89,4 +99,16 @@ int create_initialize_client_socket(int portNum = -1) {
     }
 
     return cli_sockfd;
+}
+
+void make_socket_nonblocking(int sockfd) {
+    int flags = fcntl(sockfd, F_GETFL, 0);
+
+    if (flags == -1) {
+        print_error_message_and_exit("fcnt F_GETFL failed...");
+    }
+
+    if (fcntl(sockfd, F_SETFL, flags | O_NONBLOCK) == -1) {
+        print_error_message_and_exit("fcnt F_SETFL  O_NONBLOCK failed...");
+    }
 }

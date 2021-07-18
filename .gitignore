@@ -1,1 +1,6 @@
 .vscode/
+select-server
+sequential-server
+threadpool-server
+multithreaded-server
+client
